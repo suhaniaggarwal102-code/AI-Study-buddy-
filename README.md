@@ -12,7 +12,6 @@ AI Study Buddy is an AI-powered learning platform designed to help students stud
 * 📝 **AI Quiz** – Practice MCQ quizzes with different subjects and difficulty levels
 * 📚 **Smart Notes** – Create, manage, and summarize study notes
 * 📊 **Progress & Analytics** – Track study hours, quiz performance, progress, and streaks
-* 💼 **Career Guidance** – Explore career-related learning paths
 * 📱 **Responsive UI** – Student-friendly interface for different screen sizes
 
 ## 🛠️ Tech Stack
@@ -126,7 +125,6 @@ The backend runs on the configured server port.
 | Smart Notes | Study notes and summaries           |
 | Analytics   | Learning progress tracking          |
 | Profile     | Student information and preferences |
-| Career      | Career exploration and guidance     |
 
 ## 🌟 Future Enhancements
 
@@ -145,11 +143,7 @@ AI Study Buddy is designed as a student-focused AI learning assistant that combi
 
 ## 👩‍💻 Author
 
-**Suhani Duggu**
+**Suhani Aggarwal**
 
 GitHub:
 https://github.com/suhaniaggarwal102-code
-
-## 📄 License
-
-This project is created for educational and hackathon purposes.
