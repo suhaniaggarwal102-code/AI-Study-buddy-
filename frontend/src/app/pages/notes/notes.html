@@ -1,0 +1,410 @@
+```html
+<div class="notes-page">
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="page-header">
+
+      <div>
+        <h1>📚 Smart Notes</h1>
+        <p>
+          Upload study material and create smart notes with AI.
+        </p>
+      </div>
+
+      <!-- DASHBOARD BUTTON -->
+      <button
+        type="button"
+        class="dashboard-btn"
+        routerLink="/dashboard">
+        🏠 Dashboard
+      </button>
+
+    </header>
+
+
+    <!-- PDF SUMMARIZER -->
+    <section class="summarizer-card">
+
+      <div class="section-heading">
+
+        <div class="heading-icon">
+          📄
+        </div>
+
+        <div>
+          <h2>PDF Summarizer</h2>
+          <p>
+            Upload your study material and generate an AI-style summary.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- UPLOAD AREA -->
+      <label class="upload-area">
+
+        <input
+          type="file"
+          accept=".pdf"
+          (change)="onFileSelected($event)"
+        />
+
+        <div class="upload-icon">
+          📤
+        </div>
+
+        <h3>
+          {{ fileName || 'Upload your PDF' }}
+        </h3>
+
+        <p>
+          Click here to select a PDF file
+        </p>
+
+        <span>
+          Maximum supported format: PDF
+        </span>
+
+      </label>
+
+
+      <!-- OR -->
+      <div class="or-divider">
+        <span>OR</span>
+      </div>
+
+
+      <!-- MANUAL NOTES -->
+      <div class="manual-notes">
+
+        <label>
+          ✍️ Enter Notes Manually
+        </label>
+
+        <textarea
+          [(ngModel)]="noteContent"
+          placeholder="Paste your study material or notes here..."
+        ></textarea>
+
+      </div>
+
+
+      <!-- GENERATE -->
+      <button
+        type="button"
+        class="generate-btn"
+        (click)="generateSummary()"
+        [disabled]="isSummarizing">
+
+        <span *ngIf="!isSummarizing">
+          🤖 Generate AI Summary
+        </span>
+
+        <span *ngIf="isSummarizing">
+          ⏳ Generating Summary...
+        </span>
+
+      </button>
+
+    </section>
+
+
+    <!-- AI SUMMARY -->
+    <section
+      class="summary-section"
+      *ngIf="showSummary">
+
+      <div class="summary-header">
+
+        <div>
+          <span class="small-label">
+            AI GENERATED
+          </span>
+
+          <h2>✨ Study Summary</h2>
+        </div>
+
+        <button
+          type="button"
+          class="close-summary"
+          (click)="clearSummary()">
+          ×
+        </button>
+
+      </div>
+
+
+      <!-- SUMMARY -->
+      <div class="summary-box">
+
+        <div class="summary-icon">
+          🧠
+        </div>
+
+        <div>
+          <h3>Quick Summary</h3>
+
+          <p>
+            {{ summary }}
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- KEY POINTS + QUESTIONS -->
+      <div class="summary-grid">
+
+        <div class="summary-card">
+
+          <h3>
+            📌 Key Points
+          </h3>
+
+          <ul>
+
+            <li *ngFor="let point of keyPoints">
+              <span>✓</span>
+              {{ point }}
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="summary-card">
+
+          <h3>
+            ❓ Important Questions
+          </h3>
+
+          <ul>
+
+            <li *ngFor="let question of importantQuestions">
+              <span>?</span>
+              {{ question }}
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CREATE NOTE -->
+    <section class="create-note-card">
+
+      <div class="section-heading">
+
+        <div class="heading-icon">
+          📝
+        </div>
+
+        <div>
+          <h2>Create New Note</h2>
+
+          <p>
+            Save your important study notes for later.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="note-form">
+
+        <div class="form-group">
+
+          <label>
+            Note Title
+          </label>
+
+          <input
+            type="text"
+            [(ngModel)]="noteTitle"
+            placeholder="e.g. Python Functions"
+          />
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Subject
+          </label>
+
+          <select [(ngModel)]="noteSubject">
+
+            <option value="">
+              Select Subject
+            </option>
+
+            <option value="Python">
+              Python
+            </option>
+
+            <option value="DBMS">
+              DBMS
+            </option>
+
+            <option value="Java">
+              Java
+            </option>
+
+            <option value="Computer Networks">
+              Computer Networks
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group full">
+
+          <label>
+            Note Content
+          </label>
+
+          <textarea
+            [(ngModel)]="noteContent"
+            placeholder="Write your important notes here..."
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="save-btn"
+        (click)="saveNote()">
+
+        💾 Save Note
+
+      </button>
+
+    </section>
+
+
+    <!-- SAVED NOTES -->
+    <section class="saved-notes">
+
+      <div class="saved-header">
+
+        <div>
+
+          <h2>
+            📚 My Notes
+          </h2>
+
+          <p>
+            Your saved study material
+          </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+          🔍
+
+          <input
+            type="text"
+            [(ngModel)]="searchText"
+            placeholder="Search notes..."
+          />
+
+        </div>
+
+      </div>
+
+
+      <!-- NOTES -->
+      <div
+        class="notes-grid"
+        *ngIf="filteredNotes.length > 0">
+
+        <div
+          class="note-card"
+          *ngFor="let note of filteredNotes">
+
+          <div class="note-card-top">
+
+            <span class="subject-tag">
+              {{ note.subject }}
+            </span>
+
+            <button
+              type="button"
+              class="delete-btn"
+              (click)="deleteNote(note.id)">
+
+              🗑️
+
+            </button>
+
+          </div>
+
+
+          <h3>
+            {{ note.title }}
+          </h3>
+
+          <p>
+            {{ note.content }}
+          </p>
+
+
+          <div class="note-footer">
+
+            <span>
+              📅 {{ note.date }}
+            </span>
+
+            <span>
+              📖 Study Note
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- EMPTY -->
+      <div
+        class="empty-state"
+        *ngIf="filteredNotes.length === 0">
+
+        <div>
+          📭
+        </div>
+
+        <h3>
+          No notes found
+        </h3>
+
+        <p>
+          Create your first study note above.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+```

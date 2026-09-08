@@ -1,0 +1,443 @@
+<div class="quiz-page">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      🤖 <span>AI Study Buddy</span>
+    </div>
+
+    <nav>
+
+      <a routerLink="/dashboard">
+        🏠 Dashboard
+      </a>
+
+      <a routerLink="/ai-planner">
+        🧠 AI Planner
+      </a>
+
+      <a routerLink="/chatbot">
+        💬 AI Buddy
+      </a>
+
+      <a routerLink="/quiz" class="active">
+        📝 Quiz
+      </a>
+
+      <a routerLink="/analytics">
+        📊 Progress
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a routerLink="/profile">
+        👤 Profile
+      </a>
+
+      <a routerLink="/">
+        🚪 Logout
+      </a>
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="page-header">
+
+      <div>
+        <h1>📝 AI Quiz Generator</h1>
+        <p>Test your knowledge and improve your learning.</p>
+      </div>
+
+      <div class="ai-badge">
+        🤖 AI Powered
+      </div>
+
+    </header>
+
+
+    <!-- ============================= -->
+    <!-- QUIZ SETUP -->
+    <!-- ============================= -->
+
+    <section class="setup-card" *ngIf="!quizStarted && !quizCompleted">
+
+      <div class="setup-icon">
+        🧠
+      </div>
+
+      <h2>Create Your Quiz</h2>
+
+      <p class="setup-description">
+        Select your subject, difficulty and number of questions.
+      </p>
+
+
+      <div class="form-grid">
+
+        <!-- SUBJECT -->
+
+        <div class="form-group">
+
+          <label>📚 Subject</label>
+
+          <select [(ngModel)]="subject">
+
+            <option value="">
+              Select Subject
+            </option>
+
+            <option value="Python">
+              Python
+            </option>
+
+            <option value="DBMS">
+              DBMS
+            </option>
+
+            <option value="Java">
+              Java
+            </option>
+
+            <option value="Computer Networks">
+              Computer Networks
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- DIFFICULTY -->
+
+        <div class="form-group">
+
+          <label>🎯 Difficulty</label>
+
+          <select [(ngModel)]="difficulty">
+
+            <option value="">
+              Select Difficulty
+            </option>
+
+            <option value="Easy">
+              Easy
+            </option>
+
+            <option value="Medium">
+              Medium
+            </option>
+
+            <option value="Hard">
+              Hard
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- NUMBER OF QUESTIONS -->
+
+        <div class="form-group full-width">
+
+          <label>🔢 Number of Questions</label>
+
+          <div class="question-options">
+
+            <button
+              type="button"
+              [class.selected]="questionCount === 5"
+              (click)="questionCount = 5">
+
+              5 Questions
+
+            </button>
+
+
+            <button
+              type="button"
+              [class.selected]="questionCount === 10"
+              (click)="questionCount = 10">
+
+              10 Questions
+
+            </button>
+
+
+            <button
+              type="button"
+              [class.selected]="questionCount === 20"
+              (click)="questionCount = 20">
+
+              20 Questions
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- GENERATE BUTTON -->
+
+      <button
+        type="button"
+        class="generate-btn"
+        (click)="generateQuiz()">
+
+        🤖 Generate Quiz
+
+      </button>
+
+    </section>
+
+
+
+    <!-- ============================= -->
+    <!-- QUIZ QUESTIONS -->
+    <!-- ============================= -->
+
+    <section class="quiz-card" *ngIf="quizStarted">
+
+      <!-- QUIZ TOP -->
+
+      <div class="quiz-top">
+
+        <div>
+
+          <span class="quiz-subject">
+            {{ subject }}
+          </span>
+
+          <span class="quiz-difficulty">
+            {{ difficulty }}
+          </span>
+
+        </div>
+
+        <div class="question-number">
+
+          Question
+          {{ currentQuestionIndex + 1 }}
+          of
+          {{ questions.length }}
+
+        </div>
+
+      </div>
+
+
+      <!-- PROGRESS -->
+
+      <div class="progress-container">
+
+        <div
+          class="progress-bar"
+          [style.width.%]="progress">
+        </div>
+
+      </div>
+
+
+      <!-- QUESTION -->
+
+      <div class="question-section">
+
+        <div class="question-icon">
+          ❓
+        </div>
+
+        <h2>
+          {{ currentQuestion.question }}
+        </h2>
+
+      </div>
+
+
+      <!-- OPTIONS -->
+
+      <div class="options">
+
+        <button
+          type="button"
+          *ngFor="let option of currentQuestion.options"
+          class="option"
+          [class.selected]="selectedAnswer === option"
+          (click)="selectAnswer(option)">
+
+          <span class="option-circle">
+
+            {{ currentQuestion.options.indexOf(option) + 1 }}
+
+          </span>
+
+          <span>
+            {{ option }}
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <!-- NEXT / SUBMIT -->
+
+      <div class="quiz-actions">
+
+        <button
+          type="button"
+          class="next-btn"
+          (click)="nextQuestion()">
+
+          <span *ngIf="currentQuestionIndex < questions.length - 1">
+            Next →
+          </span>
+
+          <span *ngIf="currentQuestionIndex === questions.length - 1">
+            Submit Quiz ✓
+          </span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ============================= -->
+    <!-- RESULT SCREEN -->
+    <!-- ============================= -->
+
+    <section class="result-card" *ngIf="quizCompleted">
+
+      <div class="result-icon">
+        🎉
+      </div>
+
+      <h1>Quiz Completed!</h1>
+
+      <p class="result-subtitle">
+        Great work! Here is your performance.
+      </p>
+
+
+      <!-- SCORE -->
+
+      <div class="score-circle">
+
+        <strong>
+          {{ percentage }}%
+        </strong>
+
+        <span>
+          Score
+        </span>
+
+      </div>
+
+
+      <!-- RESULT STATS -->
+
+      <div class="result-stats">
+
+        <div class="result-stat">
+
+          <span class="stat-icon">
+            🏆
+          </span>
+
+          <strong>
+            {{ score }}
+          </strong>
+
+          <small>
+            Correct
+          </small>
+
+        </div>
+
+
+        <div class="result-stat">
+
+          <span class="stat-icon">
+            ❌
+          </span>
+
+          <strong>
+            {{ questions.length - score }}
+          </strong>
+
+          <small>
+            Wrong
+          </small>
+
+        </div>
+
+
+        <div class="result-stat">
+
+          <span class="stat-icon">
+            📝
+          </span>
+
+          <strong>
+            {{ questions.length }}
+          </strong>
+
+          <small>
+            Total
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- PERFORMANCE -->
+
+      <div class="performance">
+
+        {{ performanceMessage }}
+
+      </div>
+
+
+      <!-- BUTTONS -->
+
+      <div class="result-actions">
+
+        <button
+          type="button"
+          class="retry-btn"
+          (click)="restartQuiz()">
+
+          🔄 Try Again
+
+        </button>
+
+
+        <a
+          routerLink="/dashboard"
+          class="dashboard-btn">
+
+          🏠 Dashboard
+
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

@@ -1,0 +1,313 @@
+
+<div class="analytics-layout">
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+      <div>
+        <h1>Progress & Analytics 📊</h1>
+        <p>Track your learning progress and study performance.</p>
+      </div>
+
+      <!-- DASHBOARD BUTTON -->
+      <button
+        type="button"
+        class="dashboard-btn"
+        routerLink="/dashboard">
+        🏠 Dashboard
+      </button>
+
+    </header>
+
+
+    <!-- STAT CARDS -->
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div>
+          <h3>{{ overallProgress }}%</h3>
+          <p>Overall Progress</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div>
+          <h3>{{ studyHours }} hrs</h3>
+          <p>Study This Week</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div>
+          <h3>{{ quizAverage }}%</h3>
+          <p>Quiz Average</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div>
+          <h3>{{ streak }} Days</h3>
+          <p>Study Streak</p>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- OVERALL PROGRESS -->
+    <section class="content-card overall-card">
+
+      <div class="section-title">
+        <div>
+          <h2>Overall Learning Progress</h2>
+          <p>Your current academic progress</p>
+        </div>
+
+        <strong>{{ overallProgress }}%</strong>
+      </div>
+
+      <div class="large-progress">
+        <div
+          class="large-progress-fill"
+          [style.width.%]="overallProgress">
+        </div>
+      </div>
+
+      <div class="progress-footer">
+        <span>Started</span>
+        <span>Current Progress</span>
+        <span>Goal: 100%</span>
+      </div>
+
+    </section>
+
+
+    <!-- TWO COLUMN SECTION -->
+    <section class="two-column">
+
+      <!-- WEEKLY STUDY HOURS -->
+      <div class="content-card">
+
+        <div class="section-title">
+          <div>
+            <h2>Weekly Study Hours</h2>
+            <p>Your study activity this week</p>
+          </div>
+
+          <span class="total-hours">
+            {{ studyHours }} hrs
+          </span>
+        </div>
+
+        <div class="bar-chart">
+
+          <div
+            class="bar-item"
+            *ngFor="let item of weeklyHours">
+
+            <div class="bar-value">
+              {{ item.hours }}h
+            </div>
+
+            <div class="bar-container">
+              <div
+                class="bar"
+                [style.height.%]="(item.hours / getMaxHours()) * 100">
+              </div>
+            </div>
+
+            <span>{{ item.day }}</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUIZ PERFORMANCE -->
+      <div class="content-card">
+
+        <div class="section-title">
+          <div>
+            <h2>Quiz Performance</h2>
+            <p>Average score by subject</p>
+          </div>
+        </div>
+
+        <div class="quiz-list">
+
+          <div
+            class="quiz-row"
+            *ngFor="let quiz of quizPerformance">
+
+            <div class="quiz-info">
+              <span>{{ quiz.subject }}</span>
+              <strong>{{ quiz.score }}%</strong>
+            </div>
+
+            <div class="mini-progress">
+
+              <div
+                class="mini-progress-fill"
+                [style.width.%]="quiz.score">
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBJECT PROGRESS -->
+    <section class="content-card">
+
+      <div class="section-title">
+
+        <div>
+          <h2>Subject-wise Progress 📚</h2>
+          <p>Track your progress in each subject.</p>
+        </div>
+
+      </div>
+
+
+      <div class="subject-grid">
+
+        <div
+          class="subject-card"
+          *ngFor="let subject of subjects">
+
+          <div class="subject-header">
+
+            <div class="subject-name">
+
+              <span class="subject-icon">
+                {{ subject.icon }}
+              </span>
+
+              <strong>{{ subject.name }}</strong>
+
+            </div>
+
+            <span class="percentage">
+              {{ subject.progress }}%
+            </span>
+
+          </div>
+
+
+          <div class="subject-progress">
+
+            <div
+              class="subject-progress-fill"
+              [style.width.%]="subject.progress">
+            </div>
+
+          </div>
+
+
+          <p>
+            {{ subject.progress >= 80
+              ? 'Excellent progress'
+              : subject.progress >= 60
+              ? 'Good progress'
+              : 'Needs more practice'
+            }}
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- GOALS -->
+    <section class="content-card">
+
+      <div class="section-title">
+
+        <div>
+          <h2>Learning Goals 🎯</h2>
+          <p>Keep working towards your goals.</p>
+        </div>
+
+      </div>
+
+
+      <div class="goals-list">
+
+        <div
+          class="goal-item"
+          *ngFor="let goal of goals">
+
+          <div class="goal-top">
+
+            <strong>{{ goal.title }}</strong>
+
+            <span>
+              {{ goal.progress }}%
+            </span>
+
+          </div>
+
+          <div class="goal-progress">
+
+            <div
+              class="goal-progress-fill"
+              [style.width.%]="goal.progress">
+            </div>
+
+          </div>
+
+          <small>
+            Target: {{ goal.target }}
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- COMPLETION CARD -->
+    <section class="achievement-card">
+
+      <div class="achievement-icon">
+        🏆
+      </div>
+
+      <div>
+
+        <h2>Great Work! 🎉</h2>
+
+        <p>
+          You have completed
+          <strong>{{ completedTasks }}</strong>
+          study tasks and maintained a
+          <strong>{{ streak }} day</strong>
+          study streak.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+

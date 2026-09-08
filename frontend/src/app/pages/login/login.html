@@ -1,0 +1,103 @@
+
+<div class="auth-page">
+  <div class="auth-brand">
+    <a routerLink="/" class="brand">
+      <span class="brand-icon">S</span>
+      <span>StudySphere <strong>AI</strong></span>
+    </a>
+  </div>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="welcome-icon">👋</div>
+
+        <h1>Welcome back</h1>
+
+        <p>
+          Sign in to continue your personalized learning journey.
+        </p>
+      </div>
+
+      <form>
+        <div class="form-group">
+          <label for="email">Email address</label>
+
+          <div class="input-wrapper">
+            <span class="input-icon">✉</span>
+
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="password-label">
+            <label for="password">Password</label>
+
+            <a href="#">Forgot password?</a>
+          </div>
+
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+            />
+
+            <button type="button" class="password-toggle">
+              Show
+            </button>
+          </div>
+        </div>
+
+        <label class="remember">
+          <input type="checkbox" />
+          <span>Remember me</span>
+        </label>
+
+        <button type="submit" class="submit-btn">
+          Sign In
+          <span>→</span>
+        </button>
+      </form>
+
+      <div class="divider">
+        <span>or continue with</span>
+      </div>
+
+      <div class="social-login">
+        <button type="button" class="social-btn">
+          <span class="google-icon">G</span>
+          Google
+        </button>
+
+        <button type="button" class="social-btn">
+          <span>💻</span>
+          GitHub
+        </button>
+      </div>
+
+      <p class="signup-text">
+        Don't have an account?
+        <a routerLink="/register">Create one</a>
+      </p>
+    </div>
+
+    <div class="security-note">
+      <span>🔐</span>
+      Your data is protected and securely stored.
+    </div>
+  </div>
+
+  <div class="auth-decoration decoration-one"></div>
+  <div class="auth-decoration decoration-two"></div>
+</div>
+```

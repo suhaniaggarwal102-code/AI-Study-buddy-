@@ -1,0 +1,313 @@
+
+
+<div class="profile-page">
+
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="page-header">
+
+      <div>
+        <h1>👤 My Profile</h1>
+        <p>Manage your personal information and learning preferences.</p>
+      </div>
+
+      <button
+  type="button"
+  class="dashboard-btn"
+  (click)="goToDashboard()">
+  🏠 Dashboard
+</button>
+
+    </header>
+
+
+    <!-- PROFILE HERO -->
+    <section class="profile-hero">
+
+      <div class="avatar-large">
+        {{ profile.name.charAt(0).toUpperCase() }}
+      </div>
+
+      <div class="profile-heading">
+
+        <h2>{{ profile.name }}</h2>
+
+        <p>{{ profile.email }}</p>
+
+        <span class="learner-badge">
+          🎓 Active Learner
+        </span>
+
+      </div>
+
+      <div class="profile-actions">
+
+        <button
+          *ngIf="!isEditing"
+          type="button"
+          class="edit-btn"
+          (click)="editProfile()">
+          ✏️ Edit Profile
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+    <section class="stats-grid">
+
+      <div
+        class="stat-card"
+        *ngFor="let stat of stats">
+
+        <div class="stat-icon">
+          {{ stat.icon }}
+        </div>
+
+        <div>
+          <h3>{{ stat.value }}</h3>
+          <p>{{ stat.label }}</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROFILE INFORMATION -->
+    <section class="content-card">
+
+      <div class="section-header">
+
+        <div>
+          <h2>📋 Personal Information</h2>
+          <p>Your basic profile details.</p>
+        </div>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>Full Name</label>
+
+          <input
+            type="text"
+            [(ngModel)]="profile.name"
+            [disabled]="!isEditing"
+            placeholder="Enter your name">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Email Address</label>
+
+          <input
+            type="email"
+            [(ngModel)]="profile.email"
+            [disabled]="!isEditing"
+            placeholder="Enter your email">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Course</label>
+
+          <input
+            type="text"
+            [(ngModel)]="profile.course"
+            [disabled]="!isEditing"
+            placeholder="e.g. B.Tech Computer Science">
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Semester</label>
+
+          <select
+            [(ngModel)]="profile.semester"
+            [disabled]="!isEditing">
+
+            <option>1st Semester</option>
+            <option>2nd Semester</option>
+            <option>3rd Semester</option>
+            <option>4th Semester</option>
+            <option>5th Semester</option>
+            <option>6th Semester</option>
+            <option>7th Semester</option>
+            <option>8th Semester</option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group full-width">
+
+          <label>College / University</label>
+
+          <input
+            type="text"
+            [(ngModel)]="profile.college"
+            [disabled]="!isEditing"
+            placeholder="Enter college name">
+
+        </div>
+
+
+        <div class="form-group full-width">
+
+          <label>Study Goal</label>
+
+          <input
+            type="text"
+            [(ngModel)]="profile.studyGoal"
+            [disabled]="!isEditing"
+            placeholder="What is your current study goal?">
+
+        </div>
+
+
+        <div class="form-group full-width">
+
+          <label>About Me</label>
+
+          <textarea
+            [(ngModel)]="profile.bio"
+            [disabled]="!isEditing"
+            rows="4"
+            placeholder="Tell us about yourself...">
+          </textarea>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTION BUTTONS -->
+      <div
+        class="form-actions"
+        *ngIf="isEditing">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          (click)="cancelEdit()">
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="save-btn"
+          (click)="saveProfile()">
+          💾 Save Changes
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- SUBJECT PREFERENCES -->
+    <section class="content-card">
+
+      <div class="section-header">
+
+        <div>
+          <h2>📚 Subject Preferences</h2>
+          <p>Select the subjects you are currently studying.</p>
+        </div>
+
+      </div>
+
+
+      <div class="subject-list">
+
+        <button
+          type="button"
+          class="subject-chip"
+          *ngFor="let subject of subjects"
+          [class.selected]="isSubjectSelected(subject)"
+          [disabled]="!isEditing"
+          (click)="toggleSubject(subject)">
+
+          <span>
+            {{ isSubjectSelected(subject) ? '✓' : '+' }}
+          </span>
+
+          {{ subject }}
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- LEARNING SUMMARY -->
+    <section class="content-card learning-card">
+
+      <div class="section-header">
+
+        <div>
+          <h2>🎯 Learning Summary</h2>
+          <p>Your current AI Study Buddy activity.</p>
+        </div>
+
+      </div>
+
+
+      <div class="summary-grid">
+
+        <div class="summary-item">
+          <span>Current Goal</span>
+          <strong>{{ profile.studyGoal }}</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Learning Level</span>
+          <strong>Intermediate</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Preferred Subjects</span>
+          <strong>{{ selectedSubjects.length }}</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Study Streak</span>
+          <strong>🔥 7 Days</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <div class="profile-footer">
+
+      <!-- FOOTER -->
+<button
+  type="button"
+  class="dashboard-btn"
+  (click)="goToDashboard()">
+  ← Back to Dashboard
+</button>
+    </div>
+
+  </main>
+
+</div>
+

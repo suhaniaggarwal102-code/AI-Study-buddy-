@@ -1,0 +1,767 @@
+* {
+  box-sizing: border-box;
+}
+
+.notes-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  font-family: Arial, sans-serif;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  background: #111827;
+  color: white;
+
+  padding: 25px 15px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+
+  padding: 0 10px 30px;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #cbd5e1;
+
+  padding: 13px 15px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: #2563eb;
+  color: white;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+
+/* MAIN */
+
+.main-content {
+  margin-left: 240px;
+  padding: 35px;
+  max-width: 1500px;
+}
+
+
+/* HEADER */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  font-size: 30px;
+  color: #111827;
+}
+
+.page-header p {
+  margin-top: 8px;
+
+  color: #64748b;
+}
+
+.ai-badge {
+  background: #dbeafe;
+  color: #1d4ed8;
+
+  padding: 10px 18px;
+
+  border-radius: 30px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* COMMON CARD */
+
+.summarizer-card,
+.create-note-card,
+.saved-notes,
+.summary-section {
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 28px;
+
+  margin-bottom: 25px;
+
+  box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
+}
+
+.section-heading {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.heading-icon {
+  width: 50px;
+  height: 50px;
+
+  background: #eff6ff;
+
+  border-radius: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  font-size: 21px;
+  color: #111827;
+}
+
+.section-heading p {
+  margin: 5px 0 0;
+
+  color: #64748b;
+  font-size: 14px;
+}
+
+
+/* UPLOAD */
+
+.upload-area {
+  min-height: 190px;
+
+  border: 2px dashed #93c5fd;
+
+  border-radius: 16px;
+
+  background: #f8fbff;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+
+  text-align: center;
+}
+
+.upload-area:hover {
+  background: #eff6ff;
+  border-color: #2563eb;
+}
+
+.upload-area input {
+  display: none;
+}
+
+.upload-icon {
+  width: 65px;
+  height: 65px;
+
+  border-radius: 50%;
+
+  background: #dbeafe;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+
+  margin-bottom: 12px;
+}
+
+.upload-area h3 {
+  margin: 0;
+
+  color: #1e3a8a;
+
+  font-size: 17px;
+}
+
+.upload-area p {
+  margin: 7px 0;
+
+  color: #64748b;
+}
+
+.upload-area span {
+  color: #94a3b8;
+
+  font-size: 12px;
+}
+
+
+/* DIVIDER */
+
+.or-divider {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  margin: 25px 0;
+
+  color: #94a3b8;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: #e2e8f0;
+}
+
+
+/* MANUAL NOTES */
+
+.manual-notes label,
+.form-group label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #334155;
+}
+
+textarea,
+input,
+select {
+  width: 100%;
+
+  border: 1px solid #dbe3ef;
+
+  border-radius: 10px;
+
+  padding: 13px;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: 0.2s;
+
+  font-family: inherit;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+  border-color: #2563eb;
+
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.manual-notes textarea {
+  min-height: 120px;
+
+  resize: vertical;
+}
+
+
+/* BUTTON */
+
+.generate-btn {
+  width: 100%;
+
+  margin-top: 20px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  padding: 15px;
+
+  background: #2563eb;
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.generate-btn:hover {
+  background: #1d4ed8;
+}
+
+.generate-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
+/* SUMMARY */
+
+.summary-section {
+  border: 1px solid #bfdbfe;
+
+  background: #f8fbff;
+}
+
+.summary-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.small-label {
+  color: #2563eb;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.summary-header h2 {
+  margin: 4px 0 0;
+
+  color: #111827;
+}
+
+.close-summary {
+  border: none;
+
+  background: white;
+
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  font-size: 22px;
+
+  cursor: pointer;
+}
+
+
+/* SUMMARY BOX */
+
+.summary-box {
+  display: flex;
+
+  gap: 15px;
+
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 20px;
+
+  margin-bottom: 20px;
+}
+
+.summary-icon {
+  font-size: 25px;
+}
+
+.summary-box h3 {
+  margin: 0 0 8px;
+}
+
+.summary-box p {
+  margin: 0;
+
+  line-height: 1.7;
+
+  color: #475569;
+}
+
+
+/* SUMMARY GRID */
+
+.summary-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+}
+
+.summary-card {
+  background: white;
+
+  padding: 20px;
+
+  border-radius: 14px;
+}
+
+.summary-card h3 {
+  margin-top: 0;
+
+  color: #1e293b;
+}
+
+.summary-card ul {
+  list-style: none;
+
+  padding: 0;
+  margin: 0;
+}
+
+.summary-card li {
+  display: flex;
+
+  gap: 10px;
+
+  margin: 12px 0;
+
+  color: #475569;
+
+  line-height: 1.5;
+}
+
+.summary-card li span {
+  color: #2563eb;
+
+  font-weight: bold;
+}
+
+
+/* CREATE NOTE */
+
+.note-form {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-group textarea {
+  min-height: 140px;
+
+  resize: vertical;
+}
+
+.save-btn {
+  margin-top: 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  padding: 13px 25px;
+
+  background: #16a34a;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #15803d;
+}
+
+
+/* SAVED NOTES */
+
+.saved-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.saved-header h2 {
+  margin: 0;
+}
+
+.saved-header p {
+  margin: 5px 0 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+.search-box {
+  width: 280px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  padding: 0 12px;
+
+  border-radius: 10px;
+}
+
+.search-box input {
+  border: none;
+
+  background: transparent;
+
+  box-shadow: none;
+}
+
+
+/* NOTE GRID */
+
+.notes-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.note-card {
+  border: 1px solid #e2e8f0;
+
+  border-radius: 14px;
+
+  padding: 18px;
+
+  transition: 0.2s;
+}
+
+.note-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.note-card-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.subject-tag {
+  background: #dbeafe;
+
+  color: #1d4ed8;
+
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+
+  font-weight: 600;
+}
+
+.delete-btn {
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 16px;
+}
+
+.note-card h3 {
+  margin: 15px 0 8px;
+
+  color: #1e293b;
+}
+
+.note-card p {
+  color: #64748b;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+
+  min-height: 60px;
+}
+
+.note-footer {
+  display: flex;
+
+  justify-content: space-between;
+
+  border-top: 1px solid #e2e8f0;
+
+  padding-top: 12px;
+
+  margin-top: 15px;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+
+/* EMPTY */
+
+.empty-state {
+  text-align: center;
+
+  padding: 50px;
+
+  color: #64748b;
+}
+
+.empty-state div {
+  font-size: 45px;
+}
+
+.empty-state h3 {
+  color: #334155;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+
+  .notes-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .sidebar {
+    width: 100%;
+
+    height: auto;
+
+    position: relative;
+
+    padding: 15px;
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+
+    overflow-x: auto;
+  }
+
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+
+    padding: 20px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+
+    gap: 15px;
+
+    flex-direction: column;
+  }
+
+  .note-form {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group.full {
+    grid-column: auto;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .saved-header {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 15px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+}

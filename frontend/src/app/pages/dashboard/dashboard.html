@@ -1,0 +1,229 @@
+
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <!-- Logo -->
+    <div class="logo">
+      🤖 <span>AI Study Buddy</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-menu">
+
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        🏠 Dashboard
+      </a>
+
+    
+      <a routerLink="/ai-planner" routerLinkActive="active">
+        🤖 AI Planner
+      </a>
+
+      <a routerLink="/notes" routerLinkActive="active">
+        📝 Notes
+      </a>
+
+    
+      <a routerLink="/analytics" routerLinkActive="active">
+        📊 Progress
+      </a>
+
+      <a routerLink="/chatbot" routerLinkActive="active">
+        💬 AI Buddy
+      </a>
+
+      <a routerLink="/quiz" routerLinkActive="active">
+        📝 Quiz
+      </a>
+
+      <a routerLink="/profile" routerLinkActive="active">
+        👤 Profile
+      </a>
+
+    </nav>
+
+    <!-- Bottom Navigation -->
+    <div class="sidebar-bottom">
+
+      <a routerLink="/settings">
+        ⚙️ Settings
+      </a>
+
+      <a routerLink="/login">
+        🚪 Logout
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+
+      <div>
+        <h1>Welcome back, {{ studentName }}! 👋</h1>
+        <p>Let's make today a productive study day.</p>
+      </div>
+
+      <div class="profile">
+        <div class="avatar">S</div>
+        <span>Student</span>
+      </div>
+
+    </header>
+
+
+    <!-- Statistics -->
+    <section class="stats">
+
+      <div class="stat-card" *ngFor="let stat of stats">
+
+        <div class="stat-icon">
+          {{ stat.icon }}
+        </div>
+
+        <div>
+          <h2>{{ stat.value }}</h2>
+          <p>{{ stat.label }}</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+
+      <!-- Subjects -->
+      <section class="card">
+
+        <div class="card-header">
+          <h2>📚 My Subjects</h2>
+
+          <button routerLink="/subjects">
+            View All
+          </button>
+        </div>
+
+        <div
+          class="subject"
+          *ngFor="let subject of subjects">
+
+          <div class="subject-info">
+            <span>{{ subject.name }}</span>
+            <span>{{ subject.progress }}%</span>
+          </div>
+
+          <div class="progress-bar">
+            <div
+              class="progress"
+              [style.width.%]="subject.progress">
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- Today's Plan -->
+      <section class="card">
+
+        <div class="card-header">
+          <h2>📅 Today's Study Plan</h2>
+
+          <button routerLink="/ai-planner">
+            View All
+          </button>
+        </div>
+
+        <div
+          class="task"
+          *ngFor="let task of studyTasks">
+
+          <input
+            type="checkbox"
+            [checked]="task.completed"
+            (change)="toggleTask(task)"
+          />
+
+          <div class="task-info">
+            <strong>{{ task.subject }}</strong>
+            <span>{{ task.task }}</span>
+          </div>
+
+          <time>{{ task.time }}</time>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- AI Planner -->
+    <section class="ai-planner">
+
+      <div class="ai-planner-content">
+
+        <span class="ai-icon">🤖</span>
+
+        <div>
+          <h2>AI Study Planner</h2>
+
+          <p>
+            Let AI create a personalized study plan
+            based on your subjects and goals.
+          </p>
+        </div>
+
+      </div>
+
+      <button routerLink="/ai-planner">
+        Generate Study Plan ✨
+      </button>
+
+    </section>
+
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+
+      <h2>Quick Actions</h2>
+
+      <div class="action-grid">
+
+        <button routerLink="/chatbot">
+          🤖 Ask AI Buddy
+        </button>
+
+        <button routerLink="/notes">
+          📝 Create Note
+        </button>
+
+        <button routerLink="/subjects">
+          📚 Add Subject
+        </button>
+
+        <button routerLink="/ai-planner">
+          🎯 Set Goal
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+

@@ -1,0 +1,183 @@
+
+<div class="chatbot-page">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      🤖 <span>Study Buddy</span>
+    </div>
+
+    <nav>
+
+      <a routerLink="/dashboard">
+        🏠 Dashboard
+      </a>
+
+      <a routerLink="/ai-planner">
+        🧠 AI Planner
+      </a>
+
+      <a class="active">
+        💬 AI Buddy
+      </a>
+
+      <a routerLink="/quiz">
+        📝 Quiz
+      </a>
+
+      <a routerLink="/analytics">
+        📊 Progress
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- Main Chat Area -->
+  <main class="chat-area">
+
+    <!-- Header -->
+    <header class="chat-header">
+
+      <div class="bot-info">
+
+        <div class="bot-avatar">
+          🤖
+        </div>
+
+        <div>
+          <h1>AI Study Buddy</h1>
+          <span>
+            ● Online • Ready to help
+          </span>
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="clear-btn"
+        (click)="clearChat()">
+
+        🗑️ Clear Chat
+
+      </button>
+
+    </header>
+
+
+    <!-- Messages -->
+    <section class="messages">
+
+      <div
+        class="message-row"
+        *ngFor="let message of messages"
+        [class.user-row]="message.sender === 'user'">
+
+        <div
+          class="message-avatar"
+          *ngIf="message.sender === 'bot'">
+
+          🤖
+
+        </div>
+
+
+        <div
+          class="message"
+          [class.user-message]="message.sender === 'user'">
+
+          {{ message.text }}
+
+        </div>
+
+      </div>
+
+
+      <!-- Typing -->
+      <div
+        class="message-row"
+        *ngIf="isTyping">
+
+        <div class="message-avatar">
+          🤖
+        </div>
+
+        <div class="typing">
+
+          <span></span>
+          <span></span>
+          <span></span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Suggestions -->
+    <div class="suggestions">
+
+      <button
+        type="button"
+        (click)="askSuggestion('Explain Python functions')">
+
+        🐍 Explain Python Functions
+
+      </button>
+
+      <button
+        type="button"
+        (click)="askSuggestion('Explain DBMS normalization')">
+
+        📚 Explain DBMS Normalization
+
+      </button>
+
+      <button
+        type="button"
+        (click)="askSuggestion('Help me prepare for my exam')">
+
+        🎯 Exam Preparation
+
+      </button>
+
+      <button
+        type="button"
+        (click)="askSuggestion('Give me study tips')">
+
+        💡 Study Tips
+
+      </button>
+
+    </div>
+
+
+    <!-- Input -->
+    <div class="input-area">
+
+      <input
+        type="text"
+        [(ngModel)]="userMessage"
+        (keyup.enter)="sendMessage()"
+        placeholder="Ask your AI Study Buddy anything..."
+      >
+
+      <button
+        type="button"
+        (click)="sendMessage()"
+        [disabled]="isTyping">
+
+        ➤
+
+      </button>
+
+    </div>
+
+  </main>
+
+</div>

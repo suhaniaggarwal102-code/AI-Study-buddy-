@@ -1,0 +1,260 @@
+
+<div class="planner-page">
+
+  <!-- Header -->
+  <header class="planner-header">
+
+    <div>
+      <a routerLink="/dashboard" class="back-link">
+        ← Dashboard
+      </a>
+
+      <h1>🤖 AI Study Planner</h1>
+
+      <p>
+        Create a personalized study plan according to your goals.
+      </p>
+    </div>
+
+  </header>
+
+
+  <!-- Planner Form -->
+  <section class="planner-card">
+
+    <div class="card-title">
+      <h2>Tell us about your study goal</h2>
+      <p>
+        Our AI planner will create a study schedule for you.
+      </p>
+    </div>
+
+
+    <div class="form-grid">
+
+      <!-- Subject -->
+      <div class="form-group">
+
+        <label for="subject">
+          📚 Select Subject
+        </label>
+
+        <select
+          id="subject"
+          [(ngModel)]="subject">
+
+          <option value="">
+            Choose a subject
+          </option>
+
+          <option value="Python">
+            Python
+          </option>
+
+          <option value="Java">
+            Java
+          </option>
+
+          <option value="DBMS">
+            DBMS
+          </option>
+
+          <option value="Computer Networks">
+            Computer Networks
+          </option>
+
+          <option value="Data Structures">
+            Data Structures
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Exam Date -->
+      <div class="form-group">
+
+        <label for="examDate">
+          📅 Exam Date
+        </label>
+
+        <input
+          id="examDate"
+          type="date"
+          [(ngModel)]="examDate">
+
+      </div>
+
+
+      <!-- Study Hours -->
+      <div class="form-group">
+
+        <label for="hours">
+          ⏱️ Daily Study Hours
+        </label>
+
+        <select
+          id="hours"
+          [(ngModel)]="studyHours">
+
+          <option [ngValue]="1">
+            1 Hour
+          </option>
+
+          <option [ngValue]="2">
+            2 Hours
+          </option>
+
+          <option [ngValue]="3">
+            3 Hours
+          </option>
+
+          <option [ngValue]="4">
+            4 Hours
+          </option>
+
+          <option [ngValue]="5">
+            5+ Hours
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Level -->
+      <div class="form-group">
+
+        <label for="level">
+          🎯 Your Level
+        </label>
+
+        <select
+          id="level"
+          [(ngModel)]="level">
+
+          <option value="Beginner">
+            Beginner
+          </option>
+
+          <option value="Intermediate">
+            Intermediate
+          </option>
+
+          <option value="Advanced">
+            Advanced
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+    <!-- Generate Button -->
+
+    <button
+      class="generate-btn"
+      (click)="generatePlan()">
+
+      ✨ Generate Study Plan
+
+    </button>
+
+  </section>
+
+
+  <!-- Generated Plan -->
+
+  <section
+    class="generated-plan"
+    *ngIf="planGenerated">
+
+    <div class="plan-header">
+
+      <div>
+        <span class="ai-badge">AI GENERATED</span>
+
+        <h2>
+          Your {{ subject }} Study Plan
+        </h2>
+
+        <p>
+          Personalized for {{ level }} level ·
+          {{ studyHours }} hours/day
+        </p>
+      </div>
+
+      <button
+        class="reset-btn"
+        (click)="resetPlan()">
+
+        Reset Plan
+
+      </button>
+
+    </div>
+
+
+    <!-- Tasks -->
+
+    <div class="plan-list">
+
+      <div
+        class="plan-item"
+        *ngFor="let task of studyPlan"
+        [class.completed]="task.completed">
+
+        <div class="day-number">
+          {{ task.day }}
+        </div>
+
+        <div class="task-content">
+
+          <h3>
+            {{ task.topic }}
+          </h3>
+
+          <span>
+            ⏱️ {{ task.duration }}
+          </span>
+
+        </div>
+
+        <button
+          class="complete-btn"
+          (click)="toggleTask(task)">
+
+          {{ task.completed ? '✓ Completed' : 'Mark Done' }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Empty State -->
+
+  <section
+    class="empty-state"
+    *ngIf="!planGenerated">
+
+    <div class="empty-icon">
+      🤖
+    </div>
+
+    <h2>Your AI plan will appear here</h2>
+
+    <p>
+      Select your subject, exam date and study preferences,
+      then click "Generate Study Plan".
+    </p>
+
+  </section>
+
+</div>
